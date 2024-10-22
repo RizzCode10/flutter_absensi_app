@@ -1,4 +1,5 @@
 import 'package:flutter_absensi_app/data/models/response/auth_response_model.dart';
+import 'package:flutter_absensi_app/data/models/response/user_response_model.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthLocalDatasource {
@@ -10,6 +11,15 @@ class AuthLocalDatasource {
   Future<void> removeAuthData() async {
     final pref = await SharedPreferences.getInstance();
     await pref.remove('auth_data');
+  }
+
+  Future<void> updateAuthData(UserResponseModel data) async {
+    final pref = await SharedPreferences.getInstance();
+    final authData = await getAuthData();
+    if (authData != null) {
+      final updatedData = authData.copyWith(user: data.user);
+      await pref.setString('auth_data', updatedData.toJson());
+    }
   }
 
   Future<AuthResponseModel?> getAuthData() async {

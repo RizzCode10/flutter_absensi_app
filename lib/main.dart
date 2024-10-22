@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_absensi_app/data/datasources/auth_remote_datasource.dart';
+import 'package:flutter_absensi_app/presentation/auth/bloc/login/bloc/login_bloc.dart';
+import 'package:flutter_absensi_app/presentation/auth/bloc/logout/logout_bloc.dart';
+import 'package:flutter_absensi_app/presentation/auth/pages/login_pages.dart';
 import 'package:flutter_absensi_app/presentation/auth/pages/splash_page.dart';
-import 'package:flutter_absensi_app/presentation/home/bloc/login/bloc/login_bloc.dart';
-import 'package:flutter_absensi_app/presentation/home/bloc/logout/logout_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

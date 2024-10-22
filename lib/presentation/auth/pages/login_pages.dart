@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_absensi_app/data/datasources/auth_local_datasource.dart';
-import 'package:flutter_absensi_app/presentation/home/bloc/login/bloc/login_bloc.dart';
+import 'package:flutter_absensi_app/presentation/auth/bloc/login/bloc/login_bloc.dart';
 import 'package:flutter_absensi_app/presentation/home/pages/main_page.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

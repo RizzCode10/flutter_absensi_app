@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_absensi_app/presentation/auth/bloc/logout/logout_bloc.dart';
 import 'package:flutter_absensi_app/presentation/auth/pages/login_pages.dart';
-import 'package:flutter_absensi_app/presentation/home/bloc/logout/logout_bloc.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../core/core.dart';
@@ -37,6 +37,7 @@ class _SettingPageState extends State<SettingPage> {
             },
           );
         },
+        
         builder: (context, state) {
           return state.maybeWhen(
             orElse: () {
