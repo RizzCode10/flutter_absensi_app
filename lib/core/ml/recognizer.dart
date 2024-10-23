@@ -33,6 +33,51 @@ class Recognizer {
     loadModel();
   }
 
+  // List<dynamic> imageToArray(img.Image inputImage) {
+  //   img.Image resizedImage =
+  //       img.copyResize(inputImage, width: WIDTH, height: HEIGHT);
+  //   List<double> flattenedList = [];
+  //     for (int y = 0; y < resizedImage.height; y++) {
+  //       for (int x = 0; x < resizedImage.width; x++) {
+  //         int pixel = resizedImage.getPixel(x, y) as int;  // dapatkan nilai pixel dalam bentuk int
+          
+  //         // Ekstrak komponen warna R, G, dan B dari pixel
+  //         int r = (pixel >> 16) & 0xFF; // Shift untuk mendapatkan nilai Red
+  //         int g = (pixel >> 8) & 0xFF;  // Shift untuk mendapatkan nilai Green
+  //         int b = pixel & 0xFF;         // Ambil nilai Blue langsung
+
+  //         // Tambahkan komponen R, G, dan B ke list
+  //         flattenedList.add(r.toDouble());
+  //         flattenedList.add(g.toDouble());
+  //         flattenedList.add(b.toDouble());
+  //       }
+  //     }
+
+    
+
+
+
+  //   // Konversi list menjadi Float32List dan lakukan reshape
+  //   Float32List float32Array = Float32List.fromList(flattenedList);
+  //   int channels = 3;
+  //   int height = HEIGHT;
+  //   int width = WIDTH;
+  //   Float32List reshapedArray = Float32List(1 * height * width * channels);
+    
+  //   // Lakukan reshaping array
+  //   for (int c = 0; c < channels; c++) {
+  //     for (int h = 0; h < height; h++) {
+  //       for (int w = 0; w < width; w++) {
+  //         int index = c * height * width + h * width + w;
+  //         reshapedArray[index] =
+  //             (float32Array[c * height * width + h * width + w] - 127.5) / 127.5;
+  //       }
+  //     }
+  //   }
+    
+  //   return reshapedArray.reshape([1, 112, 112, 3]);
+  // }
+
   List<dynamic> imageToArray(img.Image inputImage) {
     img.Image resizedImage =
         img.copyResize(inputImage, width: WIDTH, height: HEIGHT);

@@ -162,6 +162,8 @@ class _HomePageState extends State<HomePage> {
                   ],
                 ),
               ),
+
+              // Attendance Button
               const SpaceHeight(24.0),
               faceEmbedding != null
                   ? Button.filled(
@@ -230,6 +232,7 @@ class _HomePageState extends State<HomePage> {
                       },
                       label: 'Attendance Using Face ID',
                       icon: Assets.icons.attendance.svg(),
+                      // color: AppColors.red,
                       color: AppColors.red,
                     ),
             ],

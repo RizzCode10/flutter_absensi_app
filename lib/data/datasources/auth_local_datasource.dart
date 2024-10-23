@@ -8,11 +8,6 @@ class AuthLocalDatasource {
     await pref.setString('auth_data', data.toJson());
   }
 
-  Future<void> removeAuthData() async {
-    final pref = await SharedPreferences.getInstance();
-    await pref.remove('auth_data');
-  }
-
   Future<void> updateAuthData(UserResponseModel data) async {
     final pref = await SharedPreferences.getInstance();
     final authData = await getAuthData();
@@ -20,6 +15,12 @@ class AuthLocalDatasource {
       final updatedData = authData.copyWith(user: data.user);
       await pref.setString('auth_data', updatedData.toJson());
     }
+  }
+
+
+  Future<void> removeAuthData() async {
+    final pref = await SharedPreferences.getInstance();
+    await pref.remove('auth_data');
   }
 
   Future<AuthResponseModel?> getAuthData() async {

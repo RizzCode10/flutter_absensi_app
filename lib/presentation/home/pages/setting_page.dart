@@ -37,7 +37,6 @@ class _SettingPageState extends State<SettingPage> {
             },
           );
         },
-        
         builder: (context, state) {
           return state.maybeWhen(
             orElse: () {
