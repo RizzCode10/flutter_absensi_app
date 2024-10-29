@@ -1,12 +1,14 @@
 import 'package:bloc/bloc.dart';
 import 'package:camera/camera.dart';
-import 'package:flutter_absensi_app/data/datasources/auth_remote_datasource.dart';
-import 'package:flutter_absensi_app/data/models/response/user_response_model.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import 'package:flutter_absensi_app/data/datasources/auth_remote_datasource.dart';
+
+import '../../../../data/models/response/user_response_model.dart';
+
+part 'update_user_register_face_bloc.freezed.dart';
 part 'update_user_register_face_event.dart';
 part 'update_user_register_face_state.dart';
-part 'update_user_register_face_bloc.freezed.dart';
 
 class UpdateUserRegisterFaceBloc
     extends Bloc<UpdateUserRegisterFaceEvent, UpdateUserRegisterFaceState> {

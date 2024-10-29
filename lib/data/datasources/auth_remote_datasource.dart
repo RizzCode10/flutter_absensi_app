@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:camera/camera.dart';
+import 'package:dartz/dartz.dart';
 import 'package:flutter_absensi_app/core/constants/variables.dart';
 import 'package:flutter_absensi_app/data/datasources/auth_local_datasource.dart';
 import 'package:flutter_absensi_app/data/models/response/auth_response_model.dart';
-import 'package:flutter_absensi_app/data/models/response/user_response_model.dart';
 import 'package:http/http.dart' as http;
-import 'package:dartz/dartz.dart';
+
+import '../models/response/user_response_model.dart';
 
 class AuthRemoteDatasource {
   Future<Either<String, AuthResponseModel>> login(
@@ -19,7 +21,7 @@ class AuthRemoteDatasource {
       },
       body: jsonEncode({
         'email': username,
-        'password': password,
+        'password': password, 
       }),
     );
 
@@ -30,15 +32,15 @@ class AuthRemoteDatasource {
     }
   }
 
-  // Logout
-  Future<Either<String, String  >> logout() async {
+  //logout
+  Future<Either<String, String>> logout() async {
     final authData = await AuthLocalDatasource().getAuthData();
     final url = Uri.parse('${Variables.baseUrl}/api/logout');
     final response = await http.post(
       url,
       headers: {
         'Accept': 'application/json',
-        'Content-Type': 'application/json', 
+        'Content-Type': 'application/json',
         'Authorization': 'Bearer ${authData?.token}',
       },
     );
@@ -50,7 +52,7 @@ class AuthRemoteDatasource {
     }
   }
 
-  // Update Profile
+  //update profile
   Future<Either<String, UserResponseModel>> updateProfileRegisterFace(
     String embedding,
   ) async {

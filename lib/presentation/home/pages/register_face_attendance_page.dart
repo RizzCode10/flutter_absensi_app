@@ -233,8 +233,6 @@ class _RegisterFaceAttendencePageState
     });
   }
 
-  
-
   void showFaceRegistrationDialogue(
       img.Image croppedFace, RecognitionEmbedding recognition) {
     showDialog(

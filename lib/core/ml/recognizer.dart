@@ -2,7 +2,6 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:ui';
 
-
 import 'package:flutter_absensi_app/core/ml/recognition_embedding.dart';
 import 'package:flutter_absensi_app/data/datasources/auth_local_datasource.dart';
 import 'package:image/image.dart' as img;
@@ -11,26 +10,56 @@ import 'package:tflite_flutter/tflite_flutter.dart';
 class Recognizer {
   late Interpreter interpreter;
   late InterpreterOptions _interpreterOptions;
+
   static const int WIDTH = 112;
   static const int HEIGHT = 112;
 
   String get modelName => 'assets/mobile_face_net.tflite';
 
-  Future<void> loadModel() async {
+  // Constructor untuk Recognizer
+  Recognizer({int? numThreads}) {
+    // Inisialisasi InterpreterOptions
     try {
-      interpreter = await Interpreter.fromAsset(modelName);
+      _interpreterOptions =
+          InterpreterOptions(); // Pastikan diinisialisasi di sini
+      print("InterpreterOptions initialized");
+
+      if (numThreads != null) {
+        print("Setting numThreads to: $numThreads");
+        _interpreterOptions.threads =
+            numThreads; // Mengatur jumlah threads jika disediakan
+      } else {
+        print("numThreads is null, using default.");
+      }
     } catch (e) {
-      print('Unable to create interpreter, Caught Exception: ${e.toString()}');
+      print("Error initializing InterpreterOptions: ${e.toString()}");
     }
+
+    // Lanjutkan inisialisasi model
+    _initializeModel();
   }
 
-  Recognizer({int? numThreads}) {
-    _interpreterOptions = InterpreterOptions();
+  // Inisialisasi model secara async
+  Future<void> _initializeModel() async {
+    await loadModel();
+  }
 
-    if (numThreads != null) {
-      _interpreterOptions.threads = numThreads;
+  // Load model dengan InterpreterOptions
+  Future<void> loadModel() async {
+    try {
+      print("Loading model: $modelName with options: $_interpreterOptions");
+
+      // Inisialisasi Interpreter dengan model dan InterpreterOptions
+      interpreter = await Interpreter.fromAsset(
+        modelName,
+        options: _interpreterOptions,
+      );
+
+      print(
+          'Interpreter successfully created with options: $_interpreterOptions');
+    } catch (e) {
+      print('Error creating interpreter: ${e.toString()}');
     }
-    loadModel();
   }
 
   // List<dynamic> imageToArray(img.Image inputImage) {
@@ -40,7 +69,7 @@ class Recognizer {
   //     for (int y = 0; y < resizedImage.height; y++) {
   //       for (int x = 0; x < resizedImage.width; x++) {
   //         int pixel = resizedImage.getPixel(x, y) as int;  // dapatkan nilai pixel dalam bentuk int
-          
+
   //         // Ekstrak komponen warna R, G, dan B dari pixel
   //         int r = (pixel >> 16) & 0xFF; // Shift untuk mendapatkan nilai Red
   //         int g = (pixel >> 8) & 0xFF;  // Shift untuk mendapatkan nilai Green
@@ -53,17 +82,13 @@ class Recognizer {
   //       }
   //     }
 
-    
-
-
-
   //   // Konversi list menjadi Float32List dan lakukan reshape
   //   Float32List float32Array = Float32List.fromList(flattenedList);
   //   int channels = 3;
   //   int height = HEIGHT;
   //   int width = WIDTH;
   //   Float32List reshapedArray = Float32List(1 * height * width * channels);
-    
+
   //   // Lakukan reshaping array
   //   for (int c = 0; c < channels; c++) {
   //     for (int h = 0; h < height; h++) {
@@ -74,7 +99,7 @@ class Recognizer {
   //       }
   //     }
   //   }
-    
+
   //   return reshapedArray.reshape([1, 112, 112, 3]);
   // }
 
@@ -142,7 +167,13 @@ class Recognizer {
   Future<bool> isValidFace(List<double> emb) async {
     final authData = await AuthLocalDatasource().getAuthData();
     final faceEmbedding = authData!.user!.faceEmbedding;
-    PairEmbedding pair = findNearest(emb, faceEmbedding!.split(',').map((e) => double.parse(e)).toList().cast<double>());
+    PairEmbedding pair = findNearest(
+        emb,
+        faceEmbedding!
+            .split(',')
+            .map((e) => double.parse(e))
+            .toList()
+            .cast<double>());
     print("distance= ${pair.distance}");
     if (pair.distance < 1.0) {
       return true;
